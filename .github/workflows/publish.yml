@@ -1,0 +1,37 @@
+name: Publish
+
+# Publishes to npm for a v<version> tag (see tools/release.mjs), with provenance.
+# Needs the repository secret NPM_TOKEN until npm Trusted Publishing is set up for this workflow.
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # npm provenance
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm ci
+      - run: npm run check
+
+      - name: Check tag matches package version
+        run: |
+          V=$(node -p "require('./package.json').version")
+          if [ "v$V" != "${GITHUB_REF_NAME}" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match package version $V"; exit 1
+          fi
+
+      - name: Publish to npm
+        run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

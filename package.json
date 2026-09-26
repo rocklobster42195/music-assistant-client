@@ -1,0 +1,71 @@
+{
+    "name": "music-assistant-client",
+    "version": "0.1.0",
+    "description": "Typed TypeScript client for the Music Assistant WebSocket API: token auth, live player and queue state, auto-reconnect, convenience commands, and every API command typed.",
+    "license": "MIT",
+    "author": "Boris Kemper",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rocklobster42195/music-assistant-client.git"
+    },
+    "homepage": "https://github.com/rocklobster42195/music-assistant-client#readme",
+    "bugs": {
+        "url": "https://github.com/rocklobster42195/music-assistant-client/issues"
+    },
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "sideEffects": false,
+    "files": [
+        "dist",
+        "README.md",
+        "CHANGELOG.md",
+        "LICENSE"
+    ],
+    "keywords": [
+        "music-assistant",
+        "music assistant",
+        "home-assistant",
+        "home assistant",
+        "websocket",
+        "client",
+        "typescript",
+        "sonos",
+        "airplay",
+        "chromecast"
+    ],
+    "scripts": {
+        "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+        "build": "npm run clean && tsc -p tsconfig.build.json",
+        "prepack": "npm run build",
+        "test": "vitest run",
+        "typecheck": "tsc -p tsconfig.json",
+        "lint": "eslint src test tools",
+        "gen:api": "node tools/generate.mjs",
+        "check": "npm run build && npm run typecheck && npm test && npm run lint",
+        "release:patch": "npm run check && node tools/release.mjs patch",
+        "release:minor": "npm run check && node tools/release.mjs minor",
+        "release:major": "npm run check && node tools/release.mjs major"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "devDependencies": {
+        "@tsconfig/node20": "^20.1.9",
+        "@types/node": "~20.15.0",
+        "eslint": "^10.6.0",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.62.1",
+        "vitest": "^4.1.10"
+    }
+}
