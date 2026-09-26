@@ -1,6 +1,6 @@
 // Releases music-assistant-client to npm: bumps package.json, turns the
 // package CHANGELOG's [Unreleased] into a version section, commits, tags v<version> and
-// pushes. The "Publish" workflow then checks and publishes the tag (needs the NPM_TOKEN secret).
+// pushes. The "Publish" workflow then checks and publishes the tag (npm Trusted Publishing, no token).
 //
 //   npm run release:<patch|minor|major>   (or: node tools/release.mjs <bump> [--dry-run])
 //
