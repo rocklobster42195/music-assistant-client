@@ -4,6 +4,8 @@ All notable changes to `music-assistant-client`.
 
 ## [Unreleased]
 
+## [0.1.0] — 2026-09-26
+
 First public version.
 
 - Connection: token auth, auto-reconnect with backoff, live players and queues from server events, typed events, `onStateChange`, `connect()` (start and wait until loaded, for scripts), schema compatibility checks (`isSchemaIncompatible`, `isServerNewer`).
