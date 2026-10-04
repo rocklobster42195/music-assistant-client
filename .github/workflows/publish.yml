@@ -17,11 +17,11 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
           cache: npm
           registry-url: 'https://registry.npmjs.org'
 
-      # Trusted Publishing needs npm >= 11.5.1; Node 20 ships npm 10
+      # Trusted Publishing needs npm >= 11.5.1; npm 12 needs Node >= 22.22 or 24.15 (Node 20 can't run it)
       - run: npm install -g npm@latest
 
       - run: npm ci
